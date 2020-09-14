@@ -6,7 +6,7 @@ load './Project1DataFiles/cifar10testdata.mat'
 % This iterates through each picture class (ie airplane, automobile, etc.)
 % and access a single image that is a 3 dimensional matrix (row, column,
 % color channel).
-for classindex = 1:10
+for classindex = 1
     % indices represents a vector/array of 1000 elements -> row of 1000
     % elements
     indices = find(trueclass==classindex);
@@ -18,12 +18,17 @@ for classindex = 1:10
     
     size(image_rgb) % 3D matrix [32 x 32 x 3]
     
-    image_rgb(1, 1, 1) % this is single pixel value on the red color channel on row 1 column 1
-    % note how since we are going through 3 classes, we got the pixel value
-    % for 3 images for this one specific color channel
+    disp(image_rgb) % will print the entire 3d matrix
     
-    disp(image_rgb)
+    % testing that apply_imnormalize() worked
+    inarray = image_rgb;
+    outarray = apply_imnormalize(inarray); % should invoke disp(image) as well
     
-    figure(1); colormap(gray); imagesc(imrgb); truesize(gcf, [64, 64]);
+    % testing that apply_relu() worked
+    inarray = outarray;
+    outarray = apply_relu(inarray);
+    
+    % Shows the image.
+    figure(1); colormap(gray); imagesc(image_rgb); truesize(gcf, [64, 64]);
     title(sprintf('%s', classlabels{classindex}));
 end

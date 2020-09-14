@@ -10,6 +10,7 @@
 function result = apply_imnormalize(image)
     image = double(image);
     
+    % Iterate through every pixel and normalize using given formula.
     for row = 1:32
         for column = 1:32
             for color = 1:3

@@ -21,10 +21,16 @@ for classindex = 1
     disp(image_rgb) % will print the entire 3d matrix
     
     % testing that apply_imnormalize() worked
+    fprintf('TESTING IMNORMALIZE\n');
     inarray = image_rgb;
     outarray = apply_imnormalize(inarray); % should invoke disp(image) as well
     
+    % testing that apply_relu() worked
+    fprintf('TESTING RELU\n');
+    inarray = outarray;
+    outarray = apply_relu(inarray); % also disp
+    
     % Shows the image.
-    figure(1); colormap(gray); imagesc(image_rgb); truesize(gcf, [64, 64]);
+    figure(1); imagesc(image_rgb); truesize(gcf, [64, 64]);
     title(sprintf('%s', classlabels{classindex}));
 end
