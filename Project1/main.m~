@@ -1,0 +1,29 @@
+% Main routine which reads the input files, calls the other layer functions in the right order, and analyzes/reports the classification results. 
+
+% Referenced from the project 1 description.
+load './Project1DataFiles/cifar10testdata.mat'
+
+% This iterates through each picture class (ie airplane, automobile, etc.)
+% and access a single image that is a 3 dimensional matrix (row, column,
+% color channel).
+for classindex = 1:10
+    % indices represents a vector/array of 1000 elements -> row of 1000
+    % elements
+    indices = find(trueclass==classindex);
+    
+    size(indices) % 1 row, 1000 columns
+    
+    % Access the first color image of the particular picture class.
+    image_rgb = imageset(:, :, :, indices(1)); 
+    
+    size(image_rgb) % 3D matrix [32 x 32 x 3]
+    
+    image_rgb(1, 1, 1) % this is single pixel value on the red color channel on row 1 column 1
+    % note how since we are going through 3 classes, we got the pixel value
+    % for 3 images for this one specific color channel
+    
+    disp(image_rgb)
+    
+    figure(1); colormap(gray); imagesc(imrgb); truesize(gcf, [64, 64]);
+    title(sprintf('%s', classlabels{classindex}));
+end
