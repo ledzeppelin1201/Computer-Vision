@@ -8,7 +8,7 @@
 %      biasvals     A vector of length D2 containing bias values
 %      
 % Returned Results:
-%      outarray     Output image with size N*M*D1
+%      outarray     Output image with size N*M*D2
 %
 % Processing Flow:
 %      1. Determine the sizes D1 and D2
