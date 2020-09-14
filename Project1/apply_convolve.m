@@ -5,15 +5,18 @@
 % Input Variables:
 %      inarray      Input image with size N*M*D1
 %      filterbank   The set of filters, a 4-dimensional array of size R*C*D1*D2.
-%      biasvals     
+%      biasvals     A vector of length D2 containing bias values
 %      
 % Returned Results:
 %      outarray     Output image with size N*M*D1
 %
 % Processing Flow:
-%      1. Assign values to Bf
-%      2. Create Bb as ~Bf (-inf not considered)
-% 
+%      1. Determine the sizes D1 and D2
+%      2. Perform convolution on the input image with corresponded filters
+%         throughout D1 channels
+%      3. Sum up the convoluted results and add bias values
+%      4. Repeat this process D2 times
+%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 function [outarray] = apply_convolve(inarray, filterbank, biasvals)
@@ -25,9 +28,7 @@ function [outarray] = apply_convolve(inarray, filterbank, biasvals)
             A = inarray(:,:,k);
             Conv(:,:,k) = imfilter(A,h,'conv');
         end
-        sumc = sum(Conv,3);
         outarray(:,:,l) = sum(Conv,3)+biasvals(l);
     end
-    %disp(outarray)
-    %imshow(outarray)
+    
 end
