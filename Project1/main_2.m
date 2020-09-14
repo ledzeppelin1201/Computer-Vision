@@ -4,9 +4,9 @@ close all
 % Main routine which reads the input files, calls the other layer functions in the right order, and analyzes/reports the classification results. 
 
 % Referenced from the project 1 description.
-load './Project1DataFiles/cifar10testdata.mat'
+load 'Project1DataFiles/cifar10testdata.mat'
 %loading this file defines imrgb and layerResults
-load './Project1DataFiles/debuggingTest.mat'
+load 'Project1DataFiles/debuggingTest.mat'
 
 % This iterates through each picture class (ie airplane, automobile, etc.)
 % and access a single image that is a 3 dimensional matrix (row, column,
@@ -33,7 +33,7 @@ for classindex = 1
     outarray1 = apply_imnormalize(inarray1); % should invoke disp(image) as well
     
     %loading this file defines filterbanks and biasvectors
-    load './Project1DataFiles/CNNparameters.mat'
+    load 'Project1DataFiles/CNNparameters.mat'
     %sample code to verify which layers have filters and biases
     for d = 1:length(layertypes)
     fprintf('layer %d is of type %s\n',d,layertypes{d});
