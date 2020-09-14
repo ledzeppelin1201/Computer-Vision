@@ -12,8 +12,8 @@
 %
 % Processing Flow:
 %      1. Determine the sizes D1 and D2
-%      2. Perform convolution on the input image with corresponded filters
-%         throughout D1 channels
+%      2. Perform convolution using imfilter on the input image with 
+%         corresponded filters throughout D1 channels
 %      3. Sum up the convoluted results and add bias values
 %      4. Repeat this process D2 times
 %
