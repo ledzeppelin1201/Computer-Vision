@@ -27,7 +27,5 @@ function result = apply_relu(image)
         end
     end   
     
-    disp(image);
-    
     result = image;
 end

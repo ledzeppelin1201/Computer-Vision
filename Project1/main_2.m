@@ -31,22 +31,15 @@ for classindex = 1
     % elements
     indices = find(trueclass==classindex);
     
-    size(indices) % 1 row, 1000 columns
-    
-    % Access the first color image of the particular picture class.
-    %image_rgb = imageset(:, :, :, indices(1)); 
-    
+%     image_rgb = imageset(:, :, :, indices(1)); % gets a single image of the class
+
+    % Debug Verification
     image_rgb = imrgb;
-    
-    size(image_rgb) % 3D matrix [32 x 32 x 3]
-    
-    disp(image_rgb) % will print the entire 3d matrix
-    
     
     % Layer 1 (imnormalize) 
     fprintf('1: IMNORMALIZE\n');
     inarray1 = image_rgb;
-    outarray1 = apply_imnormalize(inarray1); % should invoke disp(image) as well
+    outarray1 = apply_imnormalize(inarray1);
     
     % Layer 2 (convolve) 
     fprintf('2: CONVOLUTION\n');
@@ -56,7 +49,7 @@ for classindex = 1
     % Layer 3 (relu) 
     fprintf('3: RELU\n');
     inarray3 = outarray2;
-    outarray3 = apply_relu(inarray3); % also dispapply_relu(inarray3); % also disp
+    outarray3 = apply_relu(inarray3);
     
     % Layer 4 (convolve) 
     fprintf('4: CONVOLUTION\n');
@@ -132,9 +125,15 @@ for classindex = 1
     fprintf('18: SOFTMAX\n');
     inarray18 = outarray17;
     outarray18 = apply_softmax(inarray18);
+    
+    disp(outarray18) % what does this represent? it represents the probability of the class being a particular type
+    figure; bar(outarray18)
+    
+    % not sure why the images are not changing, showing image_rgb but it's
+    % always airplane
      
     % Shows the image.
-    figure(1); imagesc(image_rgb); truesize(gcf, [64, 64]);
+    figure; imagesc(image_rgb); truesize(gcf, [64, 64]);
     title(sprintf('%s', classlabels{classindex}));
 end
 

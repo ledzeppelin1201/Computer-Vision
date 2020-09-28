@@ -19,8 +19,5 @@ function result = apply_imnormalize(image)
         end
     end
     
-    % Display the image to show that it does scale from range -0.5 to 0.5.
-    disp(image);
-    
     result = image;
 end
