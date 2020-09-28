@@ -128,7 +128,7 @@ for classindex = 1
     inarray17 = outarray16;
     outarray17 = apply_fullyconnect(inarray17, cell2mat(filterbanks(1,17)), cell2mat(biasvectors(1,17)));  
     
-    % Layer 18 (fullyconnect)
+    % Layer 18 (softmax)
     fprintf('18: SOFTMAX\n');
     inarray18 = outarray17;
     outarray18 = apply_softmax(inarray18);
