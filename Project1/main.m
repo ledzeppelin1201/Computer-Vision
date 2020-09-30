@@ -1,7 +1,7 @@
 load 'Project1DataFiles/cifar10testdata.mat'
 load 'Project1DataFiles/CNNparameters.mat'
 
-fprintf("COMPUTE CONFUSION MATRIX --> IT TAKES ABOUT 15 MINUTES TO PROCESS 10000 IMAGES\n");
+fprintf("START PROCESSING --> IT TAKES ABOUT 15 MINUTES TO PROCESS 10000 IMAGES\n");
 
 confusion_matrix = zeros(10);
 
@@ -100,7 +100,7 @@ for classindex = 1:10
 end
 
 fprintf("FINISHED\n");
-
+fprintf("CONFUSION MATRIX:\n");
 disp(confusion_matrix);
 
 accurate = 0;
@@ -109,6 +109,6 @@ for i = 1:10
     accurate = accurate + confusion_matrix(i, i);
 end
 
-accuracy = accurate / 10000
+accuracy = accurate / 10000;
 
 fprintf("There are %d correct predictions out of %d with an accuracy of %.4f\n", accurate, 10000, accuracy);
