@@ -12,10 +12,11 @@ y = mocapJoints(mocapFnum,:,2); % Y coordinates
 z = mocapJoints(mocapFnum,:,3); % Z coordinates
 conf = mocapJoints(mocapFnum,:,4); %confidence values
 
-%% Projection
 % focal lengths for both videos
 f2 = vue2.foclen; f4 = vue4.foclen;
+% Loop for 12 joint points
 for i=1:12
+    %% Projection
     % The given joint coordinates are in world coordinates
     WorldCord = [x(i) y(i) z(i) 1]';
     % Pad the Pmat(3*4) to 4*4 matrix with 0, 1 for multiplication
@@ -33,6 +34,16 @@ for i=1:12
     FilmCord4 = [f4 0 0 0; 0 f4 0 0; 0 0 1 0]*CamCord4;
     FilmCord4x(i)=FilmCord4(1)/FilmCord4(3); FilmCord4y(i)=FilmCord4(2)/FilmCord4(3);
     u4(i)=FilmCord4x(i)+960; v4(i)=FilmCord4y(i)+540;
+    
+    %% Triangulation
+    Pu2(:,i) = [u2(i) v2(i) 1]';  Pu4(:,i) = [u4(i) v4(i) 1]'; 
+    K2 = [1 0 960; 0 1 540; 0 0 1]*[f2 0 0 ; 0 f2 0 ; 0 0 1 ];
+    K4 = [1 0 960; 0 1 540; 0 0 1]*[f4 0 0 ; 0 f4 0 ; 0 0 1 ];
+    R2 = Pmat2(1:3,1:3); C2 = vue2.position';
+    R4 = Pmat4(1:3,1:3); C4 = vue4.position';
+    
+    Pw(:,i) = Triangulation(Pu2(:,i),Pu4(:,i),K2,K4,R2,R4,C2,C4);
+
 end
 
 
