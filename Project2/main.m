@@ -41,7 +41,7 @@ for i=1:12
     K4 = [1 0 960; 0 1 540; 0 0 1]*[f4 0 0 ; 0 f4 0 ; 0 0 1 ];
     R2 = Pmat2(1:3,1:3); C2 = vue2.position';
     R4 = Pmat4(1:3,1:3); C4 = vue4.position';
-    % Pw is the estimated 3D points 
+    % Pw contains the estimated 3D points 
     Pw(:,i) = Triangulation(Pu2(:,i),Pu4(:,i),K2,K4,R2,R4,C2,C4);
 
 end
