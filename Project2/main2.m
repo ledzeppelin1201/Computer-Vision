@@ -38,7 +38,7 @@ for mocapFnum = 1000:1010
         FilmCord2 = [f2 0 0 0; 0 f2 0 0; 0 0 1 0] * CamCord2;
         FilmCord2x(i) = FilmCord2(1) / FilmCord2(3);
         FilmCord2y(i) = FilmCord2(2) / FilmCord2(3);
-        u2(i) = FilmCord2x(i) + 960; % why 960?
+        u2(i) = FilmCord2x(i) + 960; % why 960? *It's half of the size of image, L14-P7
         v2(i) = FilmCord2y(i) + 540; % why 540?
 
         Pmat4 = padarray(vue4.Pmat, 1, 0, 'post');
@@ -46,7 +46,7 @@ for mocapFnum = 1000:1010
         CamCord4 = Pmat4 * WorldCord;
         FilmCord4 = [f4 0 0 0; 0 f4 0 0; 0 0 1 0] * CamCord4;
         FilmCord4x(i) = FilmCord4(1) / FilmCord4(3); % I think this means scaled by dividing by depth row z so x/z
-        FilmCord4y(i) = FilmCord4(2) / FilmCord4(3); % cross product right?
+        FilmCord4y(i) = FilmCord4(2) / FilmCord4(3); % cross product right? *L14-P5
         u4(i) = FilmCord4x(i) + 960;
         v4(i) = FilmCord4y(i) + 540;
 
