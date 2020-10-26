@@ -26,14 +26,14 @@ for i=1:12
     % Apply forward projection, translate into pixel coordinates
     FilmCord2 = [f2 0 0 0; 0 f2 0 0; 0 0 1 0]*CamCord;
     FilmCord2x(i)=FilmCord2(1)/FilmCord2(3); FilmCord2y(i)=FilmCord2(2)/FilmCord2(3);
-    u2(i)=FilmCord2x(i)+960; v2(i)=FilmCord2y(i)+540;
+    u2(i)=FilmCord2x(i)+960; v2(i)=FilmCord2y(i)+540; % Adding half of size of pixels
     
     % Repeat the same for vue4
     Pmat4 = padarray(vue4.Pmat,1,0,'post');  Pmat4(4,4)=1;
     CamCord4 = Pmat4*WorldCord;
     FilmCord4 = [f4 0 0 0; 0 f4 0 0; 0 0 1 0]*CamCord4;
     FilmCord4x(i)=FilmCord4(1)/FilmCord4(3); FilmCord4y(i)=FilmCord4(2)/FilmCord4(3);
-    u4(i)=FilmCord4x(i)+960; v4(i)=FilmCord4y(i)+540;
+    u4(i)=FilmCord4x(i)+960; v4(i)=FilmCord4y(i)+540; % Adding half of size of pixels
     
     %% Triangulation
     Pu2(:,i) = [u2(i) v2(i) 1]';  Pu4(:,i) = [u4(i) v4(i) 1]'; 
