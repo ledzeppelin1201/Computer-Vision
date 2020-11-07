@@ -8,16 +8,18 @@ load 'FilesForProject2/vue4CalibInfo.mat'
 %% Extract info
 %mocapFnum = 1000; %mocap frame number 1000
 
-for i = 1:13
-    mocapFnum = i*2000;
+for F = 1:6
+    mocapFnum = 1000+(F-1)*5000; % Choose frames 1000,6000,11000, ... 26000
     %mocapFnum = 1000;
     x = mocapJoints(mocapFnum,:,1); %array of 12 X coordinates
     y = mocapJoints(mocapFnum,:,2); % Y coordinates
     z = mocapJoints(mocapFnum,:,3); % Z coordinates
     conf = mocapJoints(mocapFnum,:,4); %confidence values
 
-    % focal lengths for both videos
-    %f2 = vue2.foclen; f4 = vue4.foclen;
+    % holds L2 distances for a 12 pair joint set until cleared on next
+    % frame
+    JointSet = zeros(1, 12);
+    flag = 1; % used for checking if set is confident
     % Loop for 12 joint points
     for i=1:12
         %% Projection
@@ -44,7 +46,10 @@ for i = 1:13
         CamCor4 = [proj4(i,1) proj4(i,2)]'; CamCor4 = padarray(CamCor4,1,1,'post');
 
         [EpL1(:,i), EpL2(:,i)] = findEpipolarLines(WorldCord, vue2, CamCor2, vue4, CamCor4);
+        
+        D = Distance(WorldCord, Pw(:, i));
 
+        JointSet(i) = D;
     end
 
 
@@ -69,4 +74,32 @@ for i = 1:13
 
     % Plot the joints and the epipolar lines on the frame for vue4
     PlotJoints(vid4Frame,proj4,EpL2);
+    
+    % confidence check
+    if flag == 0
+%         fprintf("skip case at frame %d\n", mocapFnum);
+        L2D(mocapFnum, :) = 0; % all zero
+    else
+        L2D(mocapFnum, :) = JointSet; % should be 1x12
+    end
+    
 end
+
+
+for joint = 1:12
+    fprintf("JOINT %d\n", joint);
+    fprintf("MEAN %d\n", mean(nonzeros(L2D(:, joint))));
+    fprintf("STD %d\n", std(nonzeros(L2D(:, joint))));
+    fprintf("MIN %d\n", min(nonzeros(L2D(:, joint))));
+    fprintf("MEDIAN %d\n", median(nonzeros(L2D(:, joint))));
+    fprintf("MAX %d\n", max(nonzeros(L2D(:, joint))));
+    fprintf("\n\n\n");
+end
+
+fprintf("EVERYTHING\n");
+fprintf("MEAN %d\n", mean(nonzeros(L2D(:, :))));
+fprintf("STD %d\n", std(nonzeros(L2D(:, :))));
+fprintf("MIN %d\n", min(nonzeros(L2D(:, :))));
+fprintf("MEDIAN %d\n", median(nonzeros(L2D(:, :))));
+fprintf("MAX %d\n", max(nonzeros(L2D(:, :))));
+fprintf("\n\n\n");
