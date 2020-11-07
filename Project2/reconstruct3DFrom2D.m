@@ -6,7 +6,6 @@ function recovered3DPoints = reconstruct3DFrom2D(cam1, cam1PixelCoords, cam2, ca
     % Determine matrices Pu, K, C, R for triangulation
     Pu1 = cam1PixelCoords; Pu2 = cam2PixelCoords; % Input two 2D points
     
-    % 
     K1 = [1 0 960; 0 1 540; 0 0 1]*[cam1.foclen 0 0 ; 0 cam1.foclen 0 ; 0 0 1 ];
     K2 = [1 0 960; 0 1 540; 0 0 1]*[cam2.foclen 0 0 ; 0 cam2.foclen 0 ; 0 0 1 ];
     

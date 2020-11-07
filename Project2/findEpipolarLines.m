@@ -30,7 +30,7 @@ function [EpipolarLines1, EpipolarLines2] = findEpipolarLines(worldCoord3DPoints
     Epipole2 = [u2,v2]; % Acquired the epipole
     % Solve linear equation using the joint point and the epipole
     syms a2 b2
-    eqn2(1) = a2*Epipole2(1)+b2*Epipole2(1)+1==0;
+    eqn2(1) = a2*Epipole2(1)+b2*Epipole2(2)+1==0;
     eqn2(2) = a2*cam2PixelCoords(1)+b2*cam2PixelCoords(2)+1==0;
     Sol2 = solve(eqn2,[a2 b2]);
     EpipolarLines2 = double([Sol2.a2,Sol2.b2,1]');

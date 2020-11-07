@@ -1,5 +1,5 @@
 function PlotJoints(vidFrame,joints,EpL)
-%,epi_lines
+
     % Show the frame image for vue2/vue4
     figure
     imshow(vidFrame)
