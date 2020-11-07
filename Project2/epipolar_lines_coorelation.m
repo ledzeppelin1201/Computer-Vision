@@ -1,5 +1,5 @@
 %2.6 attempt. Please review/edit
-function epi_lines = epiolar_lines_coorelation(C2, C4, R2, R4, K2, K4)
+function epi_lines = epipolar_lines_coorelation(C2, C4, R2, R4, K2, K4)
     % Find camera positions and epipolar line vectors
     RmatTr = transpose(R2);
     v_mat = [C2(1); C2(2); 1];
