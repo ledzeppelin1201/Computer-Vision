@@ -5,14 +5,14 @@ load 'FilesForProject2/Subject4-Session3-Take4_mocapJoints.mat'
 % L2 Distances -> 2D Matrix [frame, joint]
 L2D = zeros(1, 12);
 
-% times out, efficiency issue with large num frames
-for mocapFnum = 1000:1010
+for F = 1:6
+    mocapFnum = 1000+(F-1)*5000;
     % access input coordinates
     x = mocapJoints(mocapFnum, :, 1);
     y = mocapJoints(mocapFnum, :, 2);
     z = mocapJoints(mocapFnum, :, 3);
     conf = mocapJoints(mocapFnum, :, 4);
-    
+
     % access focal length of both cameras
     f2 = vue2.foclen;
     f4 = vue4.foclen;
@@ -74,13 +74,16 @@ for mocapFnum = 1000:1010
         L2D(mocapFnum, :) = JointSet; % should be 1x12
     end
     
-
+    fprintf("SUM L2 DISTANCE ERROR FOR FRAME %d is %d\n", mocapFnum, sum(L2D(mocapFnum, :)));
 end
 
 % disp(size(L2D))
 
+fprintf("\n\n\n");
+
 for joint = 1:12
     fprintf("JOINT %d\n", joint);
+    %fprintf("SUM %d\n", sum(nonzeros(L2D(:, joint)))); % all frames sum for that particular joint
     fprintf("MEAN %d\n", mean(nonzeros(L2D(:, joint))));
     fprintf("STD %d\n", std(nonzeros(L2D(:, joint))));
     fprintf("MIN %d\n", min(nonzeros(L2D(:, joint))));
@@ -90,10 +93,13 @@ for joint = 1:12
 end
 
 fprintf("EVERYTHING\n");
+%fprintf("SUM %d\n", sum(nonzeros(L2D(:, :)))); % all sum error for all frames for all joints
 fprintf("MEAN %d\n", mean(nonzeros(L2D(:, :))));
 fprintf("STD %d\n", std(nonzeros(L2D(:, :))));
 fprintf("MIN %d\n", min(nonzeros(L2D(:, :))));
 fprintf("MEDIAN %d\n", median(nonzeros(L2D(:, :))));
 fprintf("MAX %d\n", max(nonzeros(L2D(:, :))));
 fprintf("\n\n\n");
+
+% separate by motion frame, not joint
 
