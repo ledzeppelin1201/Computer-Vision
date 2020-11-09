@@ -49,12 +49,11 @@ function PlotJoints(vidFrame,joints,EpL)
     plot([joints(7,1) joints(10,1)], [joints(7,2) joints(10,2)],...
      'w', 'MarkerSize', 5, 'LineWidth', 1.5)
     % spine
-    plot([(joints(1,1)+joints(4,1))/2 (joints(7,1)+joints(10,1))/2], ...
-        [(joints(1,2) +joints(4,2))/2 (joints(7,2)+joints(10,2))/2], ...
+    plot([(joints(1,1)+joints(4,1))/2 ], ...
+        [(joints(1,2) +joints(4,2))/2],...
      'w', 'MarkerSize', 5, 'LineWidth', 1.5)
     
     % Plot the Epipolar lines
-    
     x = 0:1:1960;
     y = -(EpL(1,1)*x + EpL(3,1))/EpL(2,1);
     plot(x,y,'c', 'LineWidth', 2);
@@ -80,9 +79,8 @@ function PlotJoints(vidFrame,joints,EpL)
     plot(x,y,'r', 'LineWidth', 2);
     y = -(EpL(1,12)*x + EpL(3,12))/EpL(2,12);
     plot(x,y,'y', 'LineWidth', 2);
-    
     hold off
-    
+
 
 
 end
