@@ -8,7 +8,7 @@ dirstring = 'DataSets/DataSets/getin/';  maxframenum=591;
 dirstring = 'DataSets/DataSets/getout/';  maxframenum=656;
 dirstring = 'DataSets/DataSets/movecam/';  maxframenum=211;
 dirstring = 'DataSets/DataSets/trees/';  maxframenum=132;
-
+dirstring = 'DataSets/DataSets/walk/';  maxframenum=283;
 %}
 
 close all
