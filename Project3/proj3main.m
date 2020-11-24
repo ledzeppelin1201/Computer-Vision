@@ -4,9 +4,10 @@ function outimage = proj3main(dirstring, maxframenum, ...
 % Simplify parameter names
 lambda = abs_diff_threshold; alpha = alpha_parameter;
 gamma = gamma_parameter;
-% Initialize
+% Initialize variables, use cell arrays to store images
+% Convert f0001.jpg to grayscale as first element in I
 I{1} = rgb2gray(imread(append(dirstring,'f0001.jpg')));
-B_pfd{1} = I{1}; % This is B for Persistent Frame Differencing
+B_fd{1} = I{1}; % This is B for Frame Differencing
 H{1} = zeros(size(I{1}));
 
 % Loop maxframenum times
@@ -23,11 +24,11 @@ for t=2:maxframenum
     % Convert to grayscale
     I{t} = rgb2gray(imread(append(dirstring,fdir))); % I(t)= next frame
     %% Persistent Frame Differencing
-    diff = abs(B_pfd{t-1}-I{t});
+    diff = abs(B_fd{t-1}-I{t});
     M{t} = threshold(diff,lambda);
     tmp = max(H{t-1}-gamma,0);
     H{t} = max(255*M{t},tmp);
-    B_pfd{t} = I{t};
+    B_fd{t} = I{t};
     
     %figure;
     imshow(uint8(H{t}))
