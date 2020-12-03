@@ -37,10 +37,10 @@ for t=2:maxframenum
     tmp = max(H{t-1}-gamma,0);
     H{t} = max(255*M{t},tmp);
     B_fd{t} = I{t};
-%     D = uint8(H{t});
-    D = H{t};
+    D = uint8(H{t});
+%     D = H{t};
 
-    outimage = [A zeros(size(A)); zeros(size(A)) D]; 
+    outimage = [255*A zeros(size(A)); zeros(size(A)) D]; 
     imshow(outimage);
 
 %     imshow(outimage);
