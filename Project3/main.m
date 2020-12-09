@@ -16,7 +16,7 @@ clear all
 
 dirstring = 'DataSets/DataSets/walk/';  maxframenum=283;
 abs_diff_threshold = 30; % for converting absolute intensity difference values into binary values, 0-255
-alpha_parameter = 0.5; % blending parameter for ABS, 0-1
+alpha_parameter = 0.3; % blending parameter for ABS, 0-1
 gamma_parameter = 10; % decay parameter for PFD, 0-255
 proj3main(dirstring, maxframenum, abs_diff_threshold, alpha_parameter, gamma_parameter);
 
